@@ -10,12 +10,14 @@ Ne pas oublier de typer chaque champ de chaque table ! [Ici, la liste des types 
 
 Commencer par créer un utilisateur et une base de données pour notre projet.
 
-[La fiche récap est ici](TODO).
+[La fiche récap est ici](https://github.com/O-clock-Alumni/fiches-recap/blob/master/bdd/confg-postgres.md).
 
 
 ## Fichier de Définition des Données
 
 Une fois les tables listées, il est temps d'écrire un fichier SQL qui va contenir toutes les instructions pour créer ces tables!
+
+Garder la [fiche récap SQL](https://github.com/O-clock-Alumni/fiches-recap/blob/master/bdd/sql.md) sous le coude est une bonne idée :wink:
 
 Quelques règles de base :
 - Un seul fichier pour créer toutes les tables !
