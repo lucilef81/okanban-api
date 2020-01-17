@@ -1,3 +1,38 @@
+# oKanban jour 3 : Mise en place API
+
+## Archi
+
+Mettre en place l'architecture "classique" d'une projet express : 
+- installer les dépendances nécessaires avec npm.
+- dossier `app/controllers`.
+- fichier `app/router.js`.
+- point d'entrée `index.js`.
+
+## Le Train-train Express
+
+Mettre en place le fichier `index.js`. Oui c'est vrai, c'est un peu toujours la même chose...
+
+## Premier controller, premières routes
+
+Créer le premier controller : `ListController`.
+
+En respectant au maximum [les principes de routage de l'architecture REST](https://fr.wikipedia.org/wiki/Representational_state_transfer#Relation_entre_URI_et_m.C3.A9thodes_HTTP), mettre en place les routes relatives au "CRUD" des listes :
+- GET `/lists` : renvoie toutes les listes
+- GET `/lists/:id` : renvoie la liste ayant l'id demandé (ou 404 si la liste n'existe pas)
+- POST `/lists` : crée une nouvelle liste avec les données passées en POST (ou 400 si paramètre mauvais ou manquant)
+- PATCH `/lists/:id` : modifie la liste existante avec les données passées en POST (ou 404 si la liste n'existe pas, ou 400 si paramètre mauvais ou manquant)
+- PUT `/lists/:id` : modifie la liste si elle existe, ou crée la liste si elle n'existe pas (indice : se servir des 2 méthodes précédentes!)
+- DELETE `/lists/:id` : supprime la liste (ou 404 si la liste n'existe pas) ainsi que toutes les cartes associées !
+- DELETE `/list` : supprime toutes les listes... Non, en fait c'est trop dangereux, on ne l'implémente pas !
+
+Pour tester toutes ces routes, il existe plusieurs solutions : 
+- Créer un petit formulaire dans une page HTML, avec les bons attributs "method" et "action"
+- Envoyer des requêtes directement avec `curl` (la doc : https://curl.haxx.se/docs/manual.html)
+- Utiliser une application telle que [Insomnia](https://support.insomnia.rest/article/23-installation#ubuntu) ou [POSTMAN](https://www.getpostman.com/). **Cette solution est de loin la plus simple à utiliser**
+
+
+---
+
 # oKanban jour 2 : BDD
 
 ## De "concept" à "logique"
@@ -10,14 +45,12 @@ Ne pas oublier de typer chaque champ de chaque table ! [Ici, la liste des types 
 
 Commencer par créer un utilisateur et une base de données pour notre projet.
 
-[La fiche récap est ici](https://github.com/O-clock-Alumni/fiches-recap/blob/master/bdd/confg-postgres.md).
+[La fiche récap est ici](TODO).
 
 
 ## Fichier de Définition des Données
 
 Une fois les tables listées, il est temps d'écrire un fichier SQL qui va contenir toutes les instructions pour créer ces tables!
-
-Garder la [fiche récap SQL](https://github.com/O-clock-Alumni/fiches-recap/blob/master/bdd/sql.md) sous le coude est une bonne idée :wink:
 
 Quelques règles de base :
 - Un seul fichier pour créer toutes les tables !
