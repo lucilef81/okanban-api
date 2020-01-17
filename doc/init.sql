@@ -61,3 +61,32 @@ CREATE TABLE cards_have_tags (
     PRIMARY KEY ("tag_id", "card_id")
 );
 */
+
+-- ----- SEEDING -----
+
+-- 3 listes en mode kanban
+
+INSERT INTO "list"("name", "position") VALUES ('todo', 0), ('doing', 1), ('done', 2);
+
+-- quelques tâches du présent projet
+
+INSERT INTO "card"("title", "list_id", "position") VALUES
+    ('dessiner le mcd', 3, 0),
+    ('écrire les US', 3, 1),
+    ('DDL', 3, 2),
+    ('DML', 2, 0),
+    ('modèles Sequelize', 1, 0);
+
+-- 3 labels
+
+INSERT INTO "tag"("label") VALUES ('conception'), ('développement'), ('test');
+
+-- et on associe à chaque carte au moins un label
+
+INSERT INTO "cards_have_tags"("card_id", "tag_id") VALUES
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (3, 2),
+    (4, 2),
+    (5, 2);
