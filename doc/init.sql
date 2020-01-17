@@ -2,7 +2,7 @@
 
 -- table list
 
-DROP TABLE IF EXISTS "list";
+DROP TABLE IF EXISTS "list" CASCADE;
 
 CREATE TABLE "list" (
     "id" SERIAL PRIMARY KEY, -- PRIMARY KEY implique UNIQUE et NOT NULL, pas besoin de les réécrire
@@ -14,7 +14,7 @@ CREATE TABLE "list" (
 
 -- table card
 
-DROP TABLE IF EXISTS "card";
+DROP TABLE IF EXISTS "card" CASCADE;
 
 CREATE TABLE "card" (
     "id" SERIAL PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE "card" (
 
 -- table tag
 
-DROP TABLE IF EXISTS "tag";
+DROP TABLE IF EXISTS "tag" CASCADE;
 
 CREATE TABLE "tag" (
     "id" SERIAL PRIMARY KEY,
@@ -40,7 +40,7 @@ CREATE TABLE "tag" (
 
 -- table de liaison card <> tag
 
-DROP TABLE IF EXISTS "cards_have_tags";
+DROP TABLE IF EXISTS "cards_have_tags" CASCADE;
 
 CREATE TABLE "cards_have_tags" (
     "id" SERIAL PRIMARY KEY,
