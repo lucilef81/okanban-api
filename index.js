@@ -8,6 +8,11 @@ const router = require('./app/router');
 
 const PORT = process.env.PORT || 3000;
 
+// rend disponibles les données envoyées par l'utilisateur, via req.body
+app.use(express.urlencoded({
+  extended: true
+}));
+
 app.use(router);
 
 app.listen(PORT, () => {
