@@ -16,7 +16,78 @@ const CardController = {
                 include: ['tags']
             });
 
-            response.json(cards);
+            if (cards) {
+                response.json(cards);
+            } else {
+                response.status(404).json(`No cards with this list id ${listId}`);
+            }
+        } catch (error) {
+            response.status(500).json(error);
+        }
+    },
+    // route : GET /cards/:id
+    getCard: async (request, response) => {
+        try {
+            const cardId = request.params.id;
+
+            let card = await Card.findByPk(cardId, {
+                include: ['tags']
+            });
+
+            if (card) {
+                response.json(card);
+            } else {
+                response.status(404).json(`Cant find a card with the id ${cardId}`);
+            }
+        } catch (error) {
+            response.status(500).json(error);
+        }
+    },
+    // route : POST /cards
+    createCard: async (request, response) => {
+        try {
+            // extraction des données "utiles" du corps de la requête
+            // let et pas const parce que je vais éventuellement retoucher le format de color (et si elle est const, je pourrai pas)
+            let {title, color, position, listId} = request.body;
+
+            // NTUI
+            const bodyErrors = [];
+            if (!title) {
+                bodyErrors.push(`the title parameter is missing`);
+            }
+            if (!position) {
+                bodyErrors.push(`the position parameter is missing`);
+            }
+            if (!listId) {
+                bodyErrors.push(`the listId parameter is missing`);
+            }
+
+            console.log(`avant vérif : ${color}`)
+
+            // si l'utilisateur n'envoie pas directement un nombre
+            if (color && isNaN(parseInt(color))) {
+                // on va partir du principe que c'est une couleur CSS (# + 6 hex)
+                color = parseInt(color.substr(1), 16);
+            }
+
+            console.log(`après vérif : ${color}`);
+
+            if (bodyErrors.length) {
+                response.status(400).json(bodyErrors);
+            } else {
+                // solution alternative : Card.create({props});
+
+                // tout va bien, on peut continuer
+                const newCard = new Card();
+                newCard.title = title;
+                newCard.color = color;
+                newCard.position = position;
+                newCard.list_id = listId;
+
+                await newCard.save();
+                response.json(newCard);
+            }
+
         } catch (error) {
             response.status(500).json(error);
         }
