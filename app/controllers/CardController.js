@@ -91,6 +91,53 @@ const CardController = {
         } catch (error) {
             response.status(500).json(error);
         }
+    },
+    // route PATCH /cards/:id
+    editCard: async (request, response) => {
+        try {
+            const cardId = req.params.id;
+            const {title, color, list_id} = req.body;
+      
+            // on inclue les tags pour pouvoir les renvoyer à la fin de l'update
+            let card = await Card.findByPk(cardId,{
+                include: ['tags']
+            });
+            if (!card) {
+                res.status(404).json(`Cant find card with id ${cardId}`);
+            } else {
+                // on ne change que les paramètres envoyés
+                if (title) {
+                    card.title = title;
+                }
+                if (list_id) {
+                    card.list_id = list_id;
+                }
+                if (color) {
+                    card.color = color;
+                }
+                await card.save();
+                res.json(card);
+            }
+      
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+    // route DELETE /cards/:id
+    deleteCard: async (request, response) => {
+        try {
+            const cardId = req.params.id;
+            let card = await Card.findByPk(cardId);
+            if (!card) {
+                res.status(404).json(`Cant find card with id ${cardId}`);
+            } else {
+                await card.destroy();
+                res.json('ok');
+            }
+      
+        } catch (error) {
+            res.status(500).json(error);
+        }
     }
 }
 

@@ -1,7 +1,81 @@
 const { Card, Tag } = require('../models/relations');
 
 const TagController = {
-    // route : POST /cards/:id/tag
+    // route : GET /tags
+    getAllTags: async (req, res) => {
+        try {
+            const tags = await Tag.findAll();
+            res.json(tags);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+    // route : POST /tags
+    createTag: async (req, res) => {
+        try {
+            const {title, color} = req.body;
+            let bodyErrors = [];
+            if (!title) {
+                bodyErrors.push('title can not be empty');
+            }
+            if(!color) {
+                bodyErrors.push('color can not be empty');
+            }
+
+            if(bodyErrors.length) {
+                res.status(400).json(bodyErrors);
+            } else {
+                let newTag = new Tag();
+                newTag.title = title;
+                newTag.color = color;
+                await newTag.save();
+                res.json(newTag);
+            }
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }, 
+    // route : PATCH /tags/:id
+    editTag: async (req, res) => {
+        try {
+            const tagId = req.params.id;
+            const {title, color} = req.body;
+
+            let tag = await Tag.findByPk(tagId);
+            if (!tag) {
+                res.status(404).json('Can not find tag with id '+tagId);
+            } else {
+                if (title) {
+                    tag.title = title;
+                }
+                if (color) {
+                    tag.color = color;
+                }
+                await tag.save();
+                res.json(tag);
+            }
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+    // route : DELETE /tags/:id
+    deleteTag: async (req, res) => {
+        try {
+            const tagId = req.params.id;
+            let tag = await Tag.findByPk(tagId);
+            if (!tag) {
+                res.status(404).json('Can not find tag with id '+tagId);
+            } else {
+                await tag.destroy();
+                res.json('OK');
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+    // route : POST /cards/:id/tags
     associateTagToCard: async (request, response) => {
         try {
             // les 2 infos utiles ne se trouvent pas au même endroit

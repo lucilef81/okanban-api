@@ -19,8 +19,14 @@ router.delete('/lists/:id', ListController.deleteList);
 router.get('/lists/:id/cards', CardController.getCardsByList);
 router.get('/cards/:id', CardController.getCard);
 router.post('/cards', CardController.createCard);
+router.patch('/cards/:id', CardController.editCard);
+router.delete('/cards/:id', CardController.deleteCard);
 
 /* actions de Tag */
+router.get('/tags', TagController.getAllTags);
+router.post('/tags', TagController.createTag);
+router.patch('/tags/:id', TagController.editTag);
+router.delete('/tags/:id', TagController.deleteTag);
 router.post('/cards/:id/tags', TagController.associateTagToCard);
 router.delete('/cards/:card_id/tags/:tag_id', TagController.deleteTagFromCard);
 
