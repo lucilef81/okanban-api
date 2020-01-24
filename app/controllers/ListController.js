@@ -3,7 +3,16 @@ const { List } = require('../models/relations');
 const ListController = {
     getAllLists: async (request, response) => {
         try {
-            let lists = await List.findAll();
+            let lists = await List.findAll({
+                include: [{
+                    association: 'cards',
+                    include: ['tags']
+                }],
+                order: [
+                    ['position', 'ASC'],
+                    ['cards', 'position', 'ASC']
+                ]
+            });
             response.json(lists);
         } catch (error) {
             console.error(error);
