@@ -1,20 +1,31 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
+const Tag = require('./tag');
+
 class Card extends Sequelize.Model {
 
 };
 
 Card.init({
   title: Sequelize.TEXT,
-  color: Sequelize.INTEGER,
-  position: Sequelize.INTEGER,
-  list_id: Sequelize.INTEGER
+  color: Sequelize.TEXT,
+  list_id: Sequelize.INTEGER,
+  position: Sequelize.INTEGER
 }, {
   sequelize: db,
-  tableName: "card",
-  createdAt: "created_at",
-  updatedAt: "updated_at"
+  tableName: "card"
 });
 
-module.exports = Card; 
+
+/** Associations */
+
+Card.belongsToMany(Tag, {
+  as: 'tags',
+  through: 'card_has_tag',
+  foreignKey: 'card_id',
+  otherKey: 'tag_id',
+  timestamps: false
+});
+
+module.exports = Card;

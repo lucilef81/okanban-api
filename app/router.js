@@ -1,33 +1,37 @@
 const express = require('express');
 
-const ListController = require('./controllers/ListController');
-const CardController = require('./controllers/CardController');
-const TagController = require('./controllers/TagController');
+// importer les controllers
+const listController = require('./controllers/listController');
+const cardController = require('./controllers/cardController');
+const tagController = require('./controllers/tagController');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.send('hello');
+});
 
-/* actions de List */
-router.get('/lists', ListController.getAllLists);
-router.get('/lists/:id', ListController.getList);
-router.post('/lists', ListController.createList);
-router.patch('/lists/:id', ListController.editList);
-router.put('/lists/:id', ListController.upsertList);
-router.delete('/lists/:id', ListController.deleteList);
+/** Lists */
+router.get('/lists', listController.getAllLists);
+router.get('/lists/:id', listController.getOneList);
+router.post('/lists', listController.createList);
+router.patch('/lists/:id', listController.modifyList);
+router.put('/lists/:id', listController.createOrModify);
+router.delete('/lists/:id', listController.deleteList);
 
-/* actions de Card */
-router.get('/lists/:id/cards', CardController.getCardsByList);
-router.get('/cards/:id', CardController.getCard);
-router.post('/cards', CardController.createCard);
-router.patch('/cards/:id', CardController.editCard);
-router.delete('/cards/:id', CardController.deleteCard);
+/* Cards */
+router.get('/lists/:id/cards', cardController.getCardsInList);
+router.get('/cards/:id', cardController.getOneCard);
+router.post('/cards', cardController.createCard);
+router.patch('/cards/:id', cardController.modifyCard);
+router.delete('/cards/:id', cardController.deleteCard);
 
-/* actions de Tag */
-router.get('/tags', TagController.getAllTags);
-router.post('/tags', TagController.createTag);
-router.patch('/tags/:id', TagController.editTag);
-router.delete('/tags/:id', TagController.deleteTag);
-router.post('/cards/:id/tags', TagController.associateTagToCard);
-router.delete('/cards/:card_id/tags/:tag_id', TagController.deleteTagFromCard);
+/* Tags */
+router.get('/tags', tagController.getAllTags);
+router.post('/tags', tagController.createTag);
+router.patch('/tags/:id', tagController.modifyTag);
+router.delete('/tags/:id', tagController.deleteTag);
+router.post('/cards/:id/tags', tagController.associateTagToCard);
+router.delete('/cards/:cardId/tags/:tagId', tagController.removeTagFromCard);
 
 module.exports = router;

@@ -1,7 +1,5 @@
 const sequelize = require('sequelize');
 
-const dbConnection = new sequelize.Sequelize(process.env.PG_URL, {
-    dialect: 'postgres'
-});
+const dbConnection = new sequelize.Sequelize(process.env.PGSQL_URL);
 
 module.exports = dbConnection;

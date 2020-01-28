@@ -18,8 +18,8 @@ Mettre en place les routes suivantes
 - POST `/tags` : crée un nouveau tag (attention aux paramètres)
 - PATCH `/tags/:id` : modifie le tag ciblé (ou 404, ou 400, bref on commence à avoir l'habitude)
 - DELETE `/tags/:id` : supprime un tag. (Pas besoin de toucher à la table de liaison, on en reparlera en cockpit!)
-- POST `/cards/:id/tag` : associe un tag à la carte ciblée. L'id du tag doit se trouver dans les paramètres POST (sous le nom "tag_id")
-- DELETE `/cards/:card_id/tag/:tag_id` : supprime l'association entre le tag et la carte.
+- POST `/cards/:id/tags` : associe un tag à la carte ciblée. L'id du tag doit se trouver dans les paramètres POST (sous le nom "tag_id")
+- DELETE `/cards/:card_id/tags/:tag_id` : supprime l'association entre le tag et la carte.
 
 ---
 

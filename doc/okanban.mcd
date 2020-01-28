@@ -1,5 +1,5 @@
-LISTE: nom
-APPARTIENT À, 11 CARTE, 0N LISTE: position
-CARTE: titre, couleur
-CATEGORISE, 0N LABEL, 0N CARTE
-LABEL: libellé, couleur
+LABEL: label name, created at, updated at
+related to, 0N LABEL, 0N CARD
+CARD: card title, created at, updated at
+belongs to, 11 CARD, 0N LIST: order
+LIST: list name, page order, created at, updated at

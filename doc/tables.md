@@ -1,41 +1,39 @@
-# Table "List"
+# List
 
 | Champ | Type | Peut être null | Valeur par défaut |
 |---|---|---|---|
-| id | SERIAL | non | aucun |
-| name | TEXT | non | aucune |
-| position | INT | non | aucune |
-| created_at | TIMESTAMP | non | `now()` |
-| updated_at | TIMESTAMP | oui | null |
+| id | SERIAL | non | aucun|
+| name | TEXT | non | "" |
+| page_order | INTEGER | non | 0 |
+| createdAt | DATE | oui | null |
+| updatedAt | DATE | oui | null |
 
-# Table "Card"
 
-| Champ | Type | Peut être null | Valeur par défaut |
-|---|---|---|---|
-| id | SERIAL | non | aucun |
-| title | TEXT | non | aucune |
-| color | INTEGER | oui | null |
-| list_id | INT | non | aucune |
-| position | INT | non | aucune |
-| created_at | TIMESTAMP | non | `now()` |
-| updated_at | TIMESTAMP | oui | null |
-
-# Table "Tag"
+# Card
 
 | Champ | Type | Peut être null | Valeur par défaut |
 |---|---|---|---|
-| id | SERIAL | non | aucun |
-| label | TEXT | non | aucune |
-| color | INTEGER | oui | null |
-| created_at | TIMESTAMP | non | `now()` |
-| updated_at | TIMESTAMP | oui | null |
+| id | SERIAL | non | aucun|
+| title | TEXT | non | "" |
+| color | TEXT | non | "#FFF" |
+| list_id | INTEGER | non | 0 |
+| position | INTEGER | non | 0 |
+| createdAt | DATE | oui | null |
+| updatedAt | DATE | oui | null |
 
-# Table "Cards_have_tags"
+# Tag
 
 | Champ | Type | Peut être null | Valeur par défaut |
 |---|---|---|---|
-| id | SERIAL | non | aucun |
-| tag_id | INT | non | aucune |
-| card_id | INT | non | aucune |
-| created_at | TIMESTAMP | non | `now()` |
-| updated_at | TIMESTAMP | oui | null |
+| id | SERIAL | non | aucun|
+| title | TEXT | non | "" |
+| color | TEXT | non | "#FFF" |
+| createdAt | DATE | oui | null |
+| updatedAt | DATE | oui | null |
+
+# Card_has_Tag
+
+| Champ | Type | Peut être null | Valeur par défaut |
+|---|---|---|---|
+| card_id | INTEGER | non | aucun |
+| tag_id | INTEGER | non | aucun |

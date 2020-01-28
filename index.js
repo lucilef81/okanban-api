@@ -1,29 +1,27 @@
 const dotenv = require('dotenv');
 dotenv.config();
-
 const express = require('express');
-const app = express();
-
 const router = require('./app/router');
-
 const cors = require('cors');
 const multer = require('multer');
-const bodyParser = multer();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5050;
+const app = express();
 
-// pour contrôler qui peut contacter l'API
 app.use(cors('*'));
 
-// rend disponibles les données envoyées par l'utilisateur, via req.body
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(express.urlencoded({extended: true}));
+const mutipartParser = multer();
+app.use(mutipartParser.none());
 
-app.use(bodyParser.none());
+// on ajoute le middleware de "nettoyage" des variables
+const bodySanitizer = require('./app/middlewares/body-sanitizer');
+app.use(bodySanitizer);
 
 app.use(router);
 
+
+
 app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
+  console.log(`Listening on ${PORT} ...`);
 });
